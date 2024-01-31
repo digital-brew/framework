@@ -69,7 +69,7 @@
     "friendsofphp/php-cs-fixer": "^2.15",
     "phpstan/phpstan-shim": "^0.11.8",
     "phpunit/phpunit": "^7.0",
-    "symfony/var-dumper": "^4.1",
+    "symfony/var-dumper": "^6.2",
     "szepeviktor/phpstan-wordpress": "^0.3"
   },
   "scripts": {
