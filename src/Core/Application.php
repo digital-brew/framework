@@ -22,7 +22,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -977,21 +977,11 @@ class Application extends Container implements
     }
 
     /**
-     * Handles a Request to convert it to a Response.
+     * {@inheritdoc}
      *
-     * When $catch is true, the implementation must catch all exceptions
-     * and do its best to convert them to a Response instance.
-     *
-     * @param SymfonyRequest $request A Request instance
-     * @param int            $type    The type of the request
-     *                                (one of HttpKernelInterface::MASTER_REQUEST or HttpKernelInterface::SUB_REQUEST)
-     * @param bool           $catch   Whether to catch exceptions or not
-     *
-     * @throws \Exception When an Exception occurs during processing
-     *
-     * @return Response A Response instance
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(SymfonyRequest $request, $type = self::MASTER_REQUEST, $catch = true)
+    public function handle(SymfonyRequest $request, int $type = self::MAIN_REQUEST, bool $catch = true): SymfonyResponse
     {
         return $this[HttpKernelContract::class]->handle(Request::createFromBase($request));
     }
@@ -1418,11 +1408,11 @@ class Application extends Container implements
     /**
      * Register a terminating callback with the application.
      *
-     * @param Closure $callback
+     * @param callable|string  $callback
      *
      * @return $this
      */
-    public function terminating(Closure $callback)
+    public function terminating($callback)
     {
         $this->terminatingCallbacks[] = $callback;
 
@@ -1714,5 +1704,36 @@ class Application extends Container implements
         $output .= '</script>';
 
         return $output;
+    }
+
+    /**
+     * Get the path to the public / web directory.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function publicPath($path = '')
+    {
+        return $this->joinPaths($this->publicPath ?: $this->basePath('public'), $path);
+    }
+
+    /**
+     * Determine if the application is running with debug mode enabled.
+     *
+     * @return bool
+     */
+    public function hasDebugModeEnabled()
+    {
+        return (bool) $this['config']->get('app.debug');
+    }
+
+    /**
+     * Get an instance of the maintenance mode manager implementation.
+     *
+     * @return \Illuminate\Contracts\Foundation\MaintenanceMode
+     */
+    public function maintenanceMode()
+    {
+        return $this->make(MaintenanceModeContract::class);
     }
 }
