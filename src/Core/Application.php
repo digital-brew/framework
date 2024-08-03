@@ -40,7 +40,7 @@ class Application extends Container implements
     /**
      * Themosis framework version.
      */
-    public const THEMOSIS_VERSION = '3.1.0';
+    public const THEMOSIS_VERSION = '5.0.0';
 
     /**
      * Laravel version.
