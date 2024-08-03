@@ -47,7 +47,7 @@ class Application extends Container implements
      *
      * @var string
      */
-    public const VERSION = '8.0.0';
+    public const VERSION = '11.0.0';
 
     /**
      * Application textdomain.
