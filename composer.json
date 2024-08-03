@@ -69,7 +69,7 @@
     "illuminate/view": "^11.0",
     "laravel/tinker": "^2.9",
     "laravel/ui": "^4.5",
-    "league/flysystem": "^3.8.0",
+    "league/flysystem": "^1.1",
     "league/fractal": "^0.20",
     "paragonie/sodium_compat": "^2.0",
     "predis/predis": "^2.0.2",
