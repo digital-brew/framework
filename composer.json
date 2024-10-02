@@ -50,7 +50,7 @@
     "illuminate/container": "^10.0",
     "illuminate/cookie": "^10.0",
     "illuminate/database": "^10.0",
-    "illuminate/encryption": "^10.0",
+    "illuminate/encryption": "^11.0",
     "illuminate/events": "^10.0",
     "illuminate/filesystem": "^10.0",
     "illuminate/hashing": "^10.0",
